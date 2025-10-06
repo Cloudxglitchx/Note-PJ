@@ -71,6 +71,32 @@ Perfect for classrooms, study groups, and collaborative learning!
 - **Download Files** - Save attached documents
 - **Supported Types** - Images, PDFs, DOC, TXT (max 5MB each)
 
+### 8. 🤖 AI Study Tools (NEW!)
+- **Summarize Notes** - AI-generated 2-3 sentence summaries
+- **Generate Quizzes** - 5 multiple-choice practice questions
+- **Study Tips** - Personalized study recommendations
+- **Key Points** - Extract 5 main concepts automatically
+- **Smart Tags** - AI suggests relevant tags for notes
+- **FREE** - Powered by Google Gemini API
+
+### 9. 🌙 Dark Mode
+- **Toggle Theme** - Switch between light and dark modes
+- **Persistent** - Remembers your preference
+- **Eye-Friendly** - Comfortable for night studying
+- **Floating Button** - Easy access from any page
+
+### 10. ⭐ Favorites System
+- **Bookmark Notes** - Star your favorite notes
+- **Quick Access** - Filter to show only favorites
+- **Persistent** - Saved across sessions
+- **Visual Indicator** - Gold star on favorited notes
+
+### 11. 🎨 Text Highlighting
+- **Select & Highlight** - Highlight important text in notes
+- **Persistent** - Highlights saved per note
+- **Study Tool** - Focus on key concepts
+- **Easy to Use** - Select text and confirm
+
 ---
 
 ## 🚀 Quick Start (30 Seconds!)
@@ -192,10 +218,10 @@ Note PJ/
 
 ## 📊 Statistics
 
-- **7 Major Features** - Fully implemented
-- **7 HTML Pages** - Complete UI
-- **6 JavaScript Files** - ~6,000 lines of code
-- **12 Documentation Files** - Comprehensive guides
+- **11 Major Features** - Fully implemented
+- **8 HTML Pages** - Complete UI
+- **8 JavaScript Files** - ~7,500 lines of code
+- **14 Documentation Files** - Comprehensive guides
 - **0 Dependencies** - Just vanilla JS + Tailwind CDN
 - **100% Functional** - Ready for production use
 
@@ -247,6 +273,7 @@ See [FOR_YOUR_CLASS.md](FOR_YOUR_CLASS.md) for deployment instructions.
 - **Ctrl+U** - Underline text
 - **Ctrl+S** - Save draft
 - **Ctrl+Enter** - Post comment
+- **Select text** - Highlight important sections (in note detail view)
 
 ---
 
