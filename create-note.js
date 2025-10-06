@@ -1,4 +1,5 @@
 import { SimpleAuth } from './auth-simple.js';
+import { AIHelper } from './ai-helper.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   // -------------------------
@@ -6,6 +7,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // -------------------------
   const auth = new SimpleAuth();
   if (!auth.requireAuth()) return;
+
+  // -------------------------
+  // AI Helper
+  // -------------------------
+  const ai = new AIHelper();
 
   // -------------------------
   // DOM Elements
@@ -187,6 +193,45 @@ document.addEventListener('DOMContentLoaded', () => {
   // Font size
   fontSizeSelect.addEventListener('change', (e) => {
     noteContent.style.fontSize = e.target.value;
+  });
+
+  // AI Suggest Tags
+  const aiSuggestTagsBtn = document.getElementById('ai-suggest-tags');
+  aiSuggestTagsBtn.addEventListener('click', async () => {
+    const title = noteTitle.value.trim();
+    const content = noteContent.value.trim();
+    
+    if (!title && !content) {
+      alert('Please add a title or content first');
+      return;
+    }
+
+    if (!ai.hasApiKey()) {
+      alert('Please set up your Google Gemini API key in AI Settings first.');
+      return;
+    }
+
+    const originalHTML = aiSuggestTagsBtn.innerHTML;
+    aiSuggestTagsBtn.disabled = true;
+    aiSuggestTagsBtn.innerHTML = `
+      <svg class="animate-spin w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+      </svg>
+    `;
+
+    try {
+      const tags = await ai.suggestTags(title, content);
+      if (tags.length > 0) {
+        subjectInput.value = tags[0]; // Use first suggested tag
+        alert(`AI suggested tags: ${tags.join(', ')}\n\nUsing: ${tags[0]}`);
+      }
+    } catch (error) {
+      alert('AI request failed. Please try again or check your API key in AI Settings.');
+    } finally {
+      aiSuggestTagsBtn.innerHTML = originalHTML;
+      aiSuggestTagsBtn.disabled = false;
+    }
   });
 
   // Add resource

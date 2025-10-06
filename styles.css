@@ -173,3 +173,109 @@ main h1 {
   color: rgb(1, 27, 27);
 }
 
+/* ==============================
+   Dark Mode Styles
+   ============================== */
+body.dark-mode {
+  background-color: #1e293b;
+  color: #e2e8f0;
+}
+
+body.dark-mode .bg-indigo-50 {
+  background-color: #1e293b;
+}
+
+body.dark-mode .bg-white {
+  background-color: #334155;
+}
+
+body.dark-mode .text-slate-800,
+body.dark-mode .text-slate-900 {
+  color: #e2e8f0;
+}
+
+body.dark-mode .text-slate-600,
+body.dark-mode .text-slate-700 {
+  color: #cbd5e1;
+}
+
+body.dark-mode .text-slate-500 {
+  color: #94a3b8;
+}
+
+body.dark-mode .border-slate-200,
+body.dark-mode .border-slate-300 {
+  border-color: #475569;
+}
+
+body.dark-mode .note-card,
+body.dark-mode .teacher-card {
+  background-color: #334155;
+  border-color: #475569;
+}
+
+body.dark-mode .note-card:hover,
+body.dark-mode .teacher-card:hover {
+  background-color: #3f4d63;
+}
+
+body.dark-mode input,
+body.dark-mode textarea,
+body.dark-mode select {
+  background-color: #1e293b;
+  color: #e2e8f0;
+  border-color: #475569;
+}
+
+body.dark-mode .filter-btn {
+  background-color: #334155;
+  color: #e2e8f0;
+  border-color: #475569;
+}
+
+body.dark-mode .filter-btn.active {
+  background-color: #7c3aed;
+  color: white;
+}
+
+/* Dark mode toggle button */
+.dark-mode-toggle {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 50;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 1rem;
+  border-radius: 9999px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.dark-mode-toggle:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+}
+
+/* Favorite star button */
+.favorite-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s;
+  z-index: 10;
+}
+
+.favorite-btn:hover {
+  transform: scale(1.2);
+}
+
+.favorite-btn.favorited svg {
+  fill: #facc15;
+  stroke: #facc15;
+}
+

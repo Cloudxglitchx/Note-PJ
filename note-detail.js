@@ -1,5 +1,6 @@
 import { SimpleAuth } from './auth-simple.js';
 import { AIHelper } from './ai-helper.js';
+import { HighlightManager } from './theme-utils.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   // -------------------------
@@ -15,6 +16,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // AI Helper
   // -------------------------
   const ai = new AIHelper();
+
+  // -------------------------
+  // Highlight Manager
+  // -------------------------
+  const highlighter = new HighlightManager();
 
   // -------------------------
   // Get Note ID from URL
@@ -105,6 +111,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Content
     const contentEl = document.getElementById('note-content');
     contentEl.textContent = note.content || note.snippet;
+    
+    // Enable highlighting
+    highlighter.applyHighlights(contentEl, noteId);
+    highlighter.enableHighlighting(contentEl, noteId);
 
     // Resources
     const resourcesEl = document.getElementById('note-resources');

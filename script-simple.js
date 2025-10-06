@@ -1,4 +1,5 @@
 import { SimpleAuth } from './auth-simple.js';
+import { ThemeManager, FavoritesManager } from './theme-utils.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
   // -------------------------
@@ -12,6 +13,14 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Add logout button to nav
   const nav = document.getElementById('main-nav');
   auth.addLogoutButton(nav);
+
+  // -------------------------
+  // Theme & Favorites
+  // -------------------------
+  const theme = new ThemeManager();
+  theme.addToggleButton();
+  
+  const favorites = new FavoritesManager();
 
   // -------------------------
   // DOM Elements
@@ -118,14 +127,21 @@ document.addEventListener('DOMContentLoaded', async () => {
   const renderStudentNotes = () => {
     notesGrid.innerHTML = '';
 
-    const filtered = studentNotes.filter(note =>
+    let filtered = studentNotes.filter(note =>
       note.title.toLowerCase().includes(searchTerm) ||
       note.snippet.toLowerCase().includes(searchTerm)
     );
 
-    const sorted = [...filtered].sort((a,b) =>
-      currentSort === 'top' ? b.rating - a.rating : b.timestamp - a.timestamp
-    );
+    // Filter favorites if that's selected
+    if (currentSort === 'favorites') {
+      const favIds = favorites.getAll();
+      filtered = filtered.filter(note => favIds.includes(note.id));
+    }
+
+    const sorted = [...filtered].sort((a,b) => {
+      if (currentSort === 'favorites') return b.timestamp - a.timestamp;
+      return currentSort === 'top' ? b.rating - a.rating : b.timestamp - a.timestamp;
+    });
 
     const topNoteId = sorted.length ? sorted[0].id : null;
 
@@ -170,6 +186,9 @@ document.addEventListener('DOMContentLoaded', async () => {
           </div>
         </div>
       `;
+      
+      // Add favorite button
+      favorites.addFavoriteButton(noteCard, note.id);
       
       // Click card to view details
       noteCard.addEventListener('click', () => {
