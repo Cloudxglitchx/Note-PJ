@@ -116,5 +116,12 @@
 
   <!-- Custom JS -->
   <script type="module" src="calendar.js"></script>
+  <script type="module">
+    import { ThemeManager } from './theme-utils.js';
+    
+    // Add dark mode toggle
+    const theme = new ThemeManager();
+    theme.addToggleButton();
+  </script>
 </body>
 </html>

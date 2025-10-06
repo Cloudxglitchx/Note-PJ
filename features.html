@@ -574,11 +574,15 @@
 
   <script type="module">
     import { SimpleAuth } from './auth-simple.js';
-    
+    import { ThemeManager } from './theme-utils.js';
+
     document.addEventListener('DOMContentLoaded', () => {
-      const auth = new SimpleAuth();
-      
+      // Add theme toggle
+      const theme = new ThemeManager();
+      theme.addToggleButton();
+
       // Add logout button if authenticated
+      const auth = new SimpleAuth();
       if (auth.isAuthenticated()) {
         const nav = document.getElementById('main-nav');
         auth.addLogoutButton(nav);
