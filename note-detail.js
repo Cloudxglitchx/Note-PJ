@@ -1,4 +1,5 @@
 import { SimpleAuth } from './auth-simple.js';
+import { AIHelper } from './ai-helper.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   // -------------------------
@@ -9,6 +10,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const nav = document.getElementById('main-nav');
   auth.addLogoutButton(nav);
+
+  // -------------------------
+  // AI Helper
+  // -------------------------
+  const ai = new AIHelper();
 
   // -------------------------
   // Get Note ID from URL
@@ -298,6 +304,113 @@ document.addEventListener('DOMContentLoaded', () => {
       localStorage.setItem('studentNotes', JSON.stringify(notes));
     }
   }
+
+  // -------------------------
+  // AI Features
+  // -------------------------
+  const aiSummarizeBtn = document.getElementById('ai-summarize');
+  const aiQuizBtn = document.getElementById('ai-quiz');
+  const aiTipsBtn = document.getElementById('ai-tips');
+  const aiKeypointsBtn = document.getElementById('ai-keypoints');
+  const aiResults = document.getElementById('ai-results');
+  const aiResultsTitle = document.getElementById('ai-results-title');
+  const aiResultsContent = document.getElementById('ai-results-content');
+  const closeAiResults = document.getElementById('close-ai-results');
+
+  function showAIResults(title, content) {
+    aiResultsTitle.textContent = title;
+    aiResultsContent.textContent = content;
+    aiResults.classList.remove('hidden');
+    aiResults.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function showAIError(error) {
+    const message = error.message.includes('API key') 
+      ? 'Please set up your Google Gemini API key in AI Settings first.'
+      : 'AI request failed. Please try again.';
+    
+    alert(message + '\n\nGo to AI Settings to configure your API key.');
+  }
+
+  function setButtonLoading(button, loading) {
+    if (loading) {
+      button.disabled = true;
+      button.innerHTML = `
+        <svg class="animate-spin w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        Loading...
+      `;
+    } else {
+      button.disabled = false;
+      // Restore original content (will be set by caller)
+    }
+  }
+
+  aiSummarizeBtn.addEventListener('click', async () => {
+    const originalHTML = aiSummarizeBtn.innerHTML;
+    setButtonLoading(aiSummarizeBtn, true);
+    
+    try {
+      const summary = await ai.summarizeNote(note.title, note.content || note.snippet);
+      showAIResults('📝 AI Summary', summary);
+    } catch (error) {
+      showAIError(error);
+    } finally {
+      aiSummarizeBtn.innerHTML = originalHTML;
+      aiSummarizeBtn.disabled = false;
+    }
+  });
+
+  aiQuizBtn.addEventListener('click', async () => {
+    const originalHTML = aiQuizBtn.innerHTML;
+    setButtonLoading(aiQuizBtn, true);
+    
+    try {
+      const quiz = await ai.generateQuiz(note.title, note.content || note.snippet, 5);
+      showAIResults('❓ Practice Quiz', quiz);
+    } catch (error) {
+      showAIError(error);
+    } finally {
+      aiQuizBtn.innerHTML = originalHTML;
+      aiQuizBtn.disabled = false;
+    }
+  });
+
+  aiTipsBtn.addEventListener('click', async () => {
+    const originalHTML = aiTipsBtn.innerHTML;
+    setButtonLoading(aiTipsBtn, true);
+    
+    try {
+      const tips = await ai.generateStudyTips(note.title, note.content || note.snippet);
+      showAIResults('💡 Study Tips', tips);
+    } catch (error) {
+      showAIError(error);
+    } finally {
+      aiTipsBtn.innerHTML = originalHTML;
+      aiTipsBtn.disabled = false;
+    }
+  });
+
+  aiKeypointsBtn.addEventListener('click', async () => {
+    const originalHTML = aiKeypointsBtn.innerHTML;
+    setButtonLoading(aiKeypointsBtn, true);
+    
+    try {
+      const keypoints = await ai.extractKeyPoints(note.content || note.snippet);
+      showAIResults('🎯 Key Points', keypoints);
+    } catch (error) {
+      showAIError(error);
+    } finally {
+      aiKeypointsBtn.innerHTML = originalHTML;
+      aiKeypointsBtn.disabled = false;
+    }
+  });
+
+  closeAiResults.addEventListener('click', () => {
+    aiResults.classList.add('hidden');
+  });
 
   // -------------------------
   // Initial Render
