@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Note Details - Classroom Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-indigo-50 text-slate-800">
+
+  <div class="container mx-auto px-4 py-8 md:py-12">
+
+    <!-- Header -->
+    <header class="mb-10 bg-purple-600 p-4 rounded-md shadow-md">
+      <nav id="main-nav" class="mb-4 text-white max-w-4xl mx-auto flex gap-4 items-center">
+        <a href="index-simple.html" class="hover:underline flex items-center gap-2">
+          <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+          </svg>
+          Back to Dashboard
+        </a>
+        <a href="calendar.html" class="hover:underline">Calendar</a>
+        <a href="features.html" class="hover:underline">Features</a>
+        <a href="about.html" class="hover:underline">About</a>
+      </nav>
+      <h1 class="text-4xl font-bold text-white" id="note-title-header">Note Details</h1>
+    </header>
+
+    <!-- Note Content -->
+    <div class="max-w-4xl mx-auto">
+      
+      <!-- Note Card -->
+      <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+        <div class="flex items-start justify-between mb-6">
+          <div class="flex-1">
+            <h2 id="note-title" class="text-3xl font-bold text-slate-900 mb-2"></h2>
+            <div class="flex items-center gap-4 text-sm text-slate-600">
+              <span id="note-author"></span>
+              <span>•</span>
+              <span id="note-date"></span>
+              <span>•</span>
+              <span id="note-subject" class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-semibold"></span>
+            </div>
+          </div>
+          
+          <!-- Voting -->
+          <div class="flex items-center gap-3 bg-slate-50 px-4 py-2 rounded-lg">
+            <button id="upvote-btn" class="vote-btn p-2 hover:bg-slate-200 rounded-lg transition-all">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                <path d="m5 12 7-7 7 7M12 19V5"/>
+              </svg>
+            </button>
+            <span id="note-rating" class="text-xl font-bold text-slate-900"></span>
+            <button id="downvote-btn" class="vote-btn p-2 hover:bg-slate-200 rounded-lg transition-all">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 5v14m7-7-7 7-7-7"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Note Content -->
+        <div id="note-content" class="prose max-w-none text-slate-700 mb-6 whitespace-pre-wrap"></div>
+
+        <!-- Resources -->
+        <div id="note-resources" class="mt-6"></div>
+
+        <!-- Attached Files -->
+        <div id="note-files" class="mt-6"></div>
+      </div>
+
+      <!-- Comments Section -->
+      <div class="bg-white rounded-xl shadow-lg p-8">
+        <h3 class="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+          <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+          </svg>
+          Comments
+          <span id="comment-count" class="text-sm font-normal text-slate-600"></span>
+        </h3>
+
+        <!-- Add Comment Form -->
+        <div class="mb-8 bg-slate-50 rounded-lg p-4">
+          <textarea id="comment-input" rows="3" 
+            class="w-full px-4 py-3 border-2 border-slate-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all resize-none"
+            placeholder="Add a comment... Ask a question, share insights, or discuss this note!"></textarea>
+          <div class="flex justify-end gap-2 mt-3">
+            <button id="cancel-comment" class="px-4 py-2 text-slate-600 hover:bg-slate-200 rounded-lg font-medium transition-all">
+              Cancel
+            </button>
+            <button id="post-comment" class="px-6 py-2 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-700 transition-all shadow-lg">
+              Post Comment
+            </button>
+          </div>
+        </div>
+
+        <!-- Comments List -->
+        <div id="comments-list" class="space-y-4">
+          <!-- Comments will be inserted here -->
+        </div>
+
+        <!-- No Comments Message -->
+        <div id="no-comments" class="hidden text-center py-8 text-slate-500">
+          <svg class="w-16 h-16 mx-auto mb-4 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+          </svg>
+          <p class="text-lg font-semibold">No comments yet</p>
+          <p class="text-sm">Be the first to share your thoughts!</p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script type="module" src="note-detail.js"></script>
+</body>
+</html>

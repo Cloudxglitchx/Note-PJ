@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Features Guide - Classroom Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    * {
+      font-family: 'Inter', sans-serif;
+    }
+    .feature-card {
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+    }
+  </style>
+</head>
+<body class="bg-indigo-50 text-slate-800">
+
+  <div class="container mx-auto px-4 py-8 md:py-12">
+
+    <!-- Header -->
+    <header class="mb-10 bg-purple-600 p-4 rounded-md shadow-md">
+      <nav id="main-nav" class="mb-4 text-white max-w-4xl mx-auto flex gap-4 items-center">
+        <a href="index-simple.html" class="hover:underline">Home</a>
+        <a href="calendar.html" class="hover:underline">Calendar</a>
+        <a href="features.html" class="font-semibold underline">Features</a>
+        <a href="about.html" class="hover:underline">About</a>
+      </nav>
+      <h1 class="text-4xl font-bold text-white">📚 Features Guide</h1>
+      <p class="text-white mt-1">Everything you can do with Classroom Dashboard</p>
+    </header>
+
+    <!-- Welcome Section -->
+    <div class="max-w-4xl mx-auto mb-12">
+      <div class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-2xl shadow-xl p-8 mb-8">
+        <h2 class="text-3xl font-bold mb-4">Welcome to Your Classroom Dashboard! 🎓</h2>
+        <p class="text-lg mb-4">A collaborative note-sharing platform designed for students and teachers to learn together.</p>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+          <div class="bg-white bg-opacity-20 rounded-lg p-4">
+            <div class="text-3xl font-bold">📝</div>
+            <div class="text-sm mt-2">Take Notes</div>
+          </div>
+          <div class="bg-white bg-opacity-20 rounded-lg p-4">
+            <div class="text-3xl font-bold">💬</div>
+            <div class="text-sm mt-2">Discuss & Learn</div>
+          </div>
+          <div class="bg-white bg-opacity-20 rounded-lg p-4">
+            <div class="text-3xl font-bold">📅</div>
+            <div class="text-sm mt-2">Organize by Date</div>
+          </div>
+          <div class="bg-white bg-opacity-20 rounded-lg p-4">
+            <div class="text-3xl font-bold">📎</div>
+            <div class="text-sm mt-2">Share Files</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Features Grid -->
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-3xl font-bold text-slate-900 mb-8">✨ All Features (7 Total)</h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+        
+        <!-- Feature 1: Authentication -->
+        <div class="feature-card bg-white rounded-xl shadow-lg p-6">
+          <div class="flex items-start gap-4">
+            <div class="bg-purple-100 p-3 rounded-lg">
+              <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+              </svg>
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xl font-bold text-slate-900 mb-2">🔐 User Authentication</h3>
+              <p class="text-slate-600 mb-3">Secure login system with student and teacher roles.</p>
+              <div class="space-y-2 text-sm">
+                <div class="flex items-start gap-2">
+                  <span class="text-green-600">✓</span>
+                  <span>Quick login buttons for demo accounts</span>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="text-green-600">✓</span>
+                  <span>Create your own account (student or teacher)</span>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="text-green-600">✓</span>
+                  <span>Secure logout functionality</span>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="text-green-600">✓</span>
+                  <span>User name displayed in navbar</span>
+                </div>
+              </div>
+              <div class="mt-4 p-3 bg-blue-50 rounded-lg text-sm">
+                <strong>How to use:</strong> Click "Sign in as Demo Student" or create your own account on the login page.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature 2: Note Taking -->
+        <div class="feature-card bg-white rounded-xl shadow-lg p-6">
+          <div class="flex items-start gap-4">
+            <div class="bg-indigo-100 p-3 rounded-lg">
+              <svg class="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+              </svg>
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xl font-bold text-slate-900 mb-2">📝 Google Docs-Style Editor</h3>
+              <p class="text-slate-600 mb-3">Full-page note editor for taking notes during class.</p>
+              <div class="space-y-2 text-sm">
+                <div class="flex items-start gap-2">
+                  <span class="text-green-600">✓</span>
+                  <span>Clean, distraction-free writing space</span>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="text-green-600">✓</span>
+                  <span>Auto-save every 2 seconds</span>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="text-green-600">✓</span>
+                  <span>Text formatting (bold, italic, underline)</span>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="text-green-600">✓</span>
+                  <span>Word and character count</span>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="text-green-600">✓</span>
+                  <span>Copy/paste from Google Docs</span>
+                </div>
+              </div>
+              <div class="mt-4 p-3 bg-blue-50 rounded-lg text-sm">
+                <strong>How to use:</strong> Click "Add Note" button, type your notes, click "Publish Note" when done.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature 3: Calendar -->
+        <div class="feature-card bg-white rounded-xl shadow-lg p-6">
+          <div class="flex items-start gap-4">
+            <div class="bg-green-100 p-3 rounded-lg">
+              <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+              </svg>
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xl font-bold text-slate-900 mb-2">📅 Lesson Calendar</h3>
+              <p class="text-slate-600 mb-3">Browse past lessons and notes organized by date.</p>
+              <div class="space-y-2 text-sm">
+                <div class="flex items-start gap-2">
+                  <span class="text-green-600">✓</span>
+                  <span>Monthly calendar view</span>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="text-green-600">✓</span>
+                  <span>List view for chronological browsing</span>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="text-green-600">✓</span>
+                  <span>Click dates to see lessons and notes</span>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="text-green-600">✓</span>
+                  <span>Visual indicators for activity</span>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="text-green-600">✓</span>
+                  <span>Navigate between months</span>
+                </div>
+              </div>
+              <div class="mt-4 p-3 bg-blue-50 rounded-lg text-sm">
+                <strong>How to use:</strong> Click "Calendar" in navigation, browse by month or switch to list view.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature 4: Comments -->
+        <div class="feature-card bg-white rounded-xl shadow-lg p-6">
+          <div class="flex items-start gap-4">
+            <div class="bg-pink-100 p-3 rounded-lg">
+              <svg class="w-8 h-8 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+              </svg>
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xl font-bold text-slate-900 mb-2">💬 Discussion Comments</h3>
+              <p class="text-slate-600 mb-3">Discuss notes, ask questions, and collaborate.</p>
+              <div class="space-y-2 text-sm">
+                <div class="flex items-start gap-2">
+                  <span class="text-green-600">✓</span>
+                  <span>Comment on any note</span>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="text-green-600">✓</span>
+                  <span>See comment count on note cards</span>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="text-green-600">✓</span>
+                  <span>User avatars and timestamps</span>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="text-green-600">✓</span>
+                  <span>Delete your own comments</span>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="text-green-600">✓</span>
+                  <span>Keyboard shortcut (Ctrl+Enter)</span>
+                </div>
+              </div>
+              <div class="mt-4 p-3 bg-blue-50 rounded-lg text-sm">
+                <strong>How to use:</strong> Click any note card, scroll to comments, type and post your comment.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature 5: Voting -->
+        <div class="feature-card bg-white rounded-xl shadow-lg p-6">
+          <div class="flex items-start gap-4">
+            <div class="bg-yellow-100 p-3 rounded-lg">
+              <svg class="w-8 h-8 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path>
+              </svg>
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xl font-bold text-slate-900 mb-2">⬆️ Vote on Notes</h3>
+              <p class="text-slate-600 mb-3">Upvote helpful notes to highlight quality content.</p>
+              <div class="space-y-2 text-sm">
+                <div class="flex items-start gap-2">
+                  <span class="text-green-600">✓</span>
+                  <span>Upvote helpful notes</span>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="text-green-600">✓</span>
+                  <span>Downvote if needed</span>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="text-green-600">✓</span>
+                  <span>See vote count on cards</span>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="text-green-600">✓</span>
+                  <span>Sort by "Top Today"</span>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="text-green-600">✓</span>
+                  <span>Top note badge for highest rated</span>
+                </div>
+              </div>
+              <div class="mt-4 p-3 bg-blue-50 rounded-lg text-sm">
+                <strong>How to use:</strong> Click ⬆️ or ⬇️ arrows on note cards to vote.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature 6: Search & Filter -->
+        <div class="feature-card bg-white rounded-xl shadow-lg p-6">
+          <div class="flex items-start gap-4">
+            <div class="bg-blue-100 p-3 rounded-lg">
+              <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+              </svg>
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xl font-bold text-slate-900 mb-2">🔍 Search & Filter</h3>
+              <p class="text-slate-600 mb-3">Find notes quickly with search and filtering.</p>
+              <div class="space-y-2 text-sm">
+                <div class="flex items-start gap-2">
+                  <span class="text-green-600">✓</span>
+                  <span>Search by title or content</span>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="text-green-600">✓</span>
+                  <span>Filter by "Top Today" or "Newest"</span>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="text-green-600">✓</span>
+                  <span>Real-time search results</span>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="text-green-600">✓</span>
+                  <span>Browse by lesson or subject</span>
+                </div>
+              </div>
+              <div class="mt-4 p-3 bg-blue-50 rounded-lg text-sm">
+                <strong>How to use:</strong> Use search box to find notes, click filter buttons to sort.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature 7: File Uploads -->
+        <div class="feature-card bg-white rounded-xl shadow-lg p-6">
+          <div class="flex items-start gap-4">
+            <div class="bg-orange-100 p-3 rounded-lg">
+              <svg class="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path>
+              </svg>
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xl font-bold text-slate-900 mb-2">📎 File Uploads</h3>
+              <p class="text-slate-600 mb-3">Attach images, PDFs, and documents to notes.</p>
+              <div class="space-y-2 text-sm">
+                <div class="flex items-start gap-2">
+                  <span class="text-green-600">✓</span>
+                  <span>Drag and drop file upload</span>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="text-green-600">✓</span>
+                  <span>Support for images, PDFs, documents</span>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="text-green-600">✓</span>
+                  <span>Image preview thumbnails</span>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="text-green-600">✓</span>
+                  <span>Download attached files</span>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="text-green-600">✓</span>
+                  <span>Multiple files per note (Max 5MB each)</span>
+                </div>
+              </div>
+              <div class="mt-4 p-3 bg-blue-50 rounded-lg text-sm">
+                <strong>How to use:</strong> When creating a note, scroll to "Attach Files" and drag files or click to browse.
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Quick Start Guide -->
+      <div class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-2xl shadow-xl p-8 mb-12">
+        <h2 class="text-3xl font-bold mb-6">🚀 Quick Start Guide</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <h3 class="text-xl font-bold mb-4">For Students:</h3>
+            <ol class="space-y-3">
+              <li class="flex items-start gap-3">
+                <span class="bg-white text-indigo-600 rounded-full w-6 h-6 flex items-center justify-center font-bold text-sm flex-shrink-0">1</span>
+                <span>Login with demo account or create your own</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="bg-white text-indigo-600 rounded-full w-6 h-6 flex items-center justify-center font-bold text-sm flex-shrink-0">2</span>
+                <span>Browse existing notes on the dashboard</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="bg-white text-indigo-600 rounded-full w-6 h-6 flex items-center justify-center font-bold text-sm flex-shrink-0">3</span>
+                <span>Click "Add Note" to create your own notes</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="bg-white text-indigo-600 rounded-full w-6 h-6 flex items-center justify-center font-bold text-sm flex-shrink-0">4</span>
+                <span>Click notes to read and add comments</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="bg-white text-indigo-600 rounded-full w-6 h-6 flex items-center justify-center font-bold text-sm flex-shrink-0">5</span>
+                <span>Use calendar to browse by date</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="bg-white text-indigo-600 rounded-full w-6 h-6 flex items-center justify-center font-bold text-sm flex-shrink-0">6</span>
+                <span>Vote on helpful notes</span>
+              </li>
+            </ol>
+          </div>
+          
+          <div>
+            <h3 class="text-xl font-bold mb-4">For Teachers:</h3>
+            <ol class="space-y-3">
+              <li class="flex items-start gap-3">
+                <span class="bg-white text-indigo-600 rounded-full w-6 h-6 flex items-center justify-center font-bold text-sm flex-shrink-0">1</span>
+                <span>Login with teacher account</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="bg-white text-indigo-600 rounded-full w-6 h-6 flex items-center justify-center font-bold text-sm flex-shrink-0">2</span>
+                <span>Post lesson overviews for students</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="bg-white text-indigo-600 rounded-full w-6 h-6 flex items-center justify-center font-bold text-sm flex-shrink-0">3</span>
+                <span>Review student notes and comments</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="bg-white text-indigo-600 rounded-full w-6 h-6 flex items-center justify-center font-bold text-sm flex-shrink-0">4</span>
+                <span>Answer questions in comments</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="bg-white text-indigo-600 rounded-full w-6 h-6 flex items-center justify-center font-bold text-sm flex-shrink-0">5</span>
+                <span>Track engagement via calendar</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="bg-white text-indigo-600 rounded-full w-6 h-6 flex items-center justify-center font-bold text-sm flex-shrink-0">6</span>
+                <span>Encourage collaboration</span>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tips & Tricks -->
+      <div class="bg-white rounded-xl shadow-lg p-8 mb-12">
+        <h2 class="text-3xl font-bold text-slate-900 mb-6">💡 Tips & Tricks</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="space-y-4">
+            <div class="flex items-start gap-3">
+              <span class="text-2xl">⌨️</span>
+              <div>
+                <h4 class="font-bold text-slate-900">Keyboard Shortcuts</h4>
+                <p class="text-sm text-slate-600">Ctrl+B (Bold), Ctrl+I (Italic), Ctrl+S (Save), Ctrl+Enter (Post Comment)</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start gap-3">
+              <span class="text-2xl">📋</span>
+              <div>
+                <h4 class="font-bold text-slate-900">Copy from Google Docs</h4>
+                <p class="text-sm text-slate-600">Take notes in Google Docs, then copy/paste into the editor when done</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start gap-3">
+              <span class="text-2xl">🔗</span>
+              <div>
+                <h4 class="font-bold text-slate-900">Link to Lessons</h4>
+                <p class="text-sm text-slate-600">When creating notes, select the related lesson to organize by topic</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="space-y-4">
+            <div class="flex items-start gap-3">
+              <span class="text-2xl">💾</span>
+              <div>
+                <h4 class="font-bold text-slate-900">Auto-Save</h4>
+                <p class="text-sm text-slate-600">Notes auto-save every 2 seconds - never lose your work!</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start gap-3">
+              <span class="text-2xl">🎯</span>
+              <div>
+                <h4 class="font-bold text-slate-900">Use Tags</h4>
+                <p class="text-sm text-slate-600">Add subject tags to notes for better organization</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start gap-3">
+              <span class="text-2xl">👥</span>
+              <div>
+                <h4 class="font-bold text-slate-900">Collaborate</h4>
+                <p class="text-sm text-slate-600">Use comments to ask questions and help each other learn</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start gap-3">
+              <span class="text-2xl">📎</span>
+              <div>
+                <h4 class="font-bold text-slate-900">Attach Files</h4>
+                <p class="text-sm text-slate-600">Drag and drop images, PDFs, and documents to share with classmates</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start gap-3">
+              <span class="text-2xl">🖼️</span>
+              <div>
+                <h4 class="font-bold text-slate-900">Visual Learning</h4>
+                <p class="text-sm text-slate-600">Upload diagrams, charts, and screenshots to enhance your notes</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Back to Dashboard -->
+      <div class="text-center">
+        <a href="index-simple.html" class="inline-flex items-center gap-2 px-8 py-4 bg-purple-600 text-white rounded-lg font-bold text-lg hover:bg-purple-700 transition-all shadow-lg hover:shadow-xl">
+          <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+          </svg>
+          Back to Dashboard
+        </a>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script type="module">
+    import { SimpleAuth } from './auth-simple.js';
+    
+    document.addEventListener('DOMContentLoaded', () => {
+      const auth = new SimpleAuth();
+      
+      // Add logout button if authenticated
+      if (auth.isAuthenticated()) {
+        const nav = document.getElementById('main-nav');
+        auth.addLogoutButton(nav);
+      }
+    });
+  </script>
+</body>
+</html>

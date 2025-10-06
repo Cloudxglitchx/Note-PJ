@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Classroom Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-indigo-50 text-slate-800">
+
+  <div class="container mx-auto px-4 py-8 md:py-12">
+
+    <!-- Header -->
+    <header class="mb-10 bg-purple-600 p-4 rounded-md shadow-md">
+      <nav id="main-nav" class="mb-4 text-white max-w-4xl mx-auto flex gap-4 items-center">
+        <a href="index-simple.html" class="font-semibold underline hover:underline">Home</a>
+        <a href="calendar.html" class="hover:underline">Calendar</a>
+        <a href="features.html" class="hover:underline">Features</a>
+        <a href="about.html" class="hover:underline">About</a>
+      </nav>
+      <h1 class="text-4xl font-bold text-white">Today's Classroom</h1>
+      <p id="current-date" class="text-white mt-1"></p>
+    </header>
+
+    <!-- Teacher's Lesson Overview -->
+    <section id="teacher-post" class="mb-12">
+      <!-- Teacher card will be dynamically inserted here -->
+    </section>
+
+    <!-- Student Notes Section -->
+    <section>
+
+      <!-- Filtering and Search Bar -->
+      <div class="flex flex-wrap items-center justify-between gap-4 mb-8">
+        <h2 class="text-2xl font-bold text-slate-900">Student Notes</h2>
+        <div class="flex items-center gap-2 flex-wrap">
+          
+          <!-- Add Note Button -->
+          <a href="create-note.html" class="px-4 py-2 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-700 transition-all shadow-lg flex items-center gap-2">
+            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+            </svg>
+            Add Note
+          </a>
+
+          <!-- Filter Buttons -->
+          <div id="filter-container" class="flex items-center space-x-2">
+            <button data-sort="top" class="filter-btn font-medium py-2 px-4 rounded-lg bg-white border border-slate-300 hover:bg-slate-100 transition-colors">
+              Top Today
+            </button>
+            <button data-sort="newest" class="filter-btn active font-medium py-2 px-4 rounded-lg bg-white border border-slate-300 hover:bg-slate-100 transition-colors">
+              Newest
+            </button>
+          </div>
+
+          <!-- Search Box -->
+          <div class="relative">
+            <input type="text" id="search-bar" placeholder="Search notes..." class="pl-10 pr-4 py-2 w-48 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Notes Grid -->
+      <main id="notes-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Note cards will be dynamically inserted here -->
+      </main>
+
+    </section>
+
+  </div>
+
+  <!-- Custom JS -->
+  <script type="module" src="script-simple.js"></script>
+</body>
+</html>

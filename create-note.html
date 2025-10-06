@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Note - Classroom Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+    
+    /* Google Docs-like editor */
+    .doc-editor {
+      background: white;
+      box-shadow: 0 0 0 1px rgba(0,0,0,0.1), 0 2px 4px rgba(0,0,0,0.08);
+      min-height: 800px;
+      padding: 96px;
+      margin: 0 auto;
+      max-width: 850px;
+      line-height: 1.6;
+    }
+    
+    .doc-editor:focus {
+      outline: none;
+    }
+    
+    .doc-title {
+      font-size: 28px;
+      font-weight: 400;
+      border: none;
+      outline: none;
+      width: 100%;
+      margin-bottom: 8px;
+      padding: 8px 0;
+    }
+    
+    .doc-title:focus {
+      outline: none;
+    }
+    
+    .doc-content {
+      font-size: 11pt;
+      font-family: 'Arial', sans-serif;
+      border: none;
+      outline: none;
+      width: 100%;
+      min-height: 600px;
+      resize: none;
+      line-height: 1.6;
+    }
+    
+    .doc-content:focus {
+      outline: none;
+    }
+    
+    .toolbar {
+      background: #f9fafb;
+      border-bottom: 1px solid #e5e7eb;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    
+    .toolbar-btn {
+      padding: 8px 12px;
+      border-radius: 4px;
+      transition: background 0.2s;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+    }
+    
+    .toolbar-btn:hover {
+      background: #e5e7eb;
+    }
+    
+    .word-count {
+      color: #6b7280;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body class="bg-slate-100">
+
+  <!-- Top Bar -->
+  <div class="bg-white border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <a href="index-simple.html" class="text-slate-600 hover:text-slate-900 flex items-center gap-2">
+          <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+          </svg>
+          Back to Dashboard
+        </a>
+        <div class="h-6 w-px bg-slate-300"></div>
+        <div class="flex items-center gap-2">
+          <svg class="text-purple-600" width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+          </svg>
+          <span id="doc-title-display" class="font-semibold text-slate-900">Untitled Note</span>
+        </div>
+      </div>
+      
+      <div class="flex items-center gap-3">
+        <span class="word-count" id="word-count">0 words</span>
+        <button id="save-draft-btn" class="px-4 py-2 text-slate-700 hover:bg-slate-100 rounded-lg font-medium transition-all">
+          Save Draft
+        </button>
+        <button id="publish-btn" class="px-6 py-2 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-700 transition-all shadow-lg">
+          Publish Note
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toolbar -->
+  <div class="toolbar">
+    <div class="max-w-7xl mx-auto px-4 py-2 flex items-center gap-2">
+      <button class="toolbar-btn" id="bold-btn" title="Bold (Ctrl+B)">
+        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M15.6 10.79c.97-.67 1.65-1.77 1.65-2.79 0-2.26-1.75-4-4-4H7v14h7.04c2.09 0 3.71-1.7 3.71-3.79 0-1.52-.86-2.82-2.15-3.42zM10 6.5h3c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5h-3v-3zm3.5 9H10v-3h3.5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5z"/>
+        </svg>
+      </button>
+      <button class="toolbar-btn" id="italic-btn" title="Italic (Ctrl+I)">
+        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M10 4v3h2.21l-3.42 8H6v3h8v-3h-2.21l3.42-8H18V4z"/>
+        </svg>
+      </button>
+      <button class="toolbar-btn" id="underline-btn" title="Underline (Ctrl+U)">
+        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 17c3.31 0 6-2.69 6-6V3h-2.5v8c0 1.93-1.57 3.5-3.5 3.5S8.5 12.93 8.5 11V3H6v8c0 3.31 2.69 6 6 6zm-7 2v2h14v-2H5z"/>
+        </svg>
+      </button>
+      
+      <div class="h-6 w-px bg-slate-300 mx-2"></div>
+      
+      <select id="font-size" class="toolbar-btn px-2">
+        <option value="10pt">10</option>
+        <option value="11pt" selected>11</option>
+        <option value="12pt">12</option>
+        <option value="14pt">14</option>
+        <option value="18pt">18</option>
+        <option value="24pt">24</option>
+      </select>
+      
+      <div class="h-6 w-px bg-slate-300 mx-2"></div>
+      
+      <button class="toolbar-btn" id="bullet-btn" title="Bullet List">
+        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M4 10.5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zm0-6c-.83 0-1.5.67-1.5 1.5S3.17 7.5 4 7.5 5.5 6.83 5.5 6 4.83 4.5 4 4.5zm0 12c-.83 0-1.5.68-1.5 1.5s.68 1.5 1.5 1.5 1.5-.68 1.5-1.5-.67-1.5-1.5-1.5zM7 19h14v-2H7v2zm0-6h14v-2H7v2zm0-8v2h14V5H7z"/>
+        </svg>
+      </button>
+      <button class="toolbar-btn" id="number-btn" title="Numbered List">
+        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M2 17h2v.5H3v1h1v.5H2v1h3v-4H2v1zm1-9h1V4H2v1h1v3zm-1 3h1.8L2 13.1v.9h3v-1H3.2L5 10.9V10H2v1zm5-6v2h14V5H7zm0 14h14v-2H7v2zm0-6h14v-2H7v2z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Document Editor -->
+  <div class="py-8">
+    <div class="doc-editor">
+      <input 
+        type="text" 
+        id="note-title" 
+        class="doc-title" 
+        placeholder="Untitled Note"
+        autocomplete="off"
+      >
+      <textarea 
+        id="note-content" 
+        class="doc-content" 
+        placeholder="Start typing your notes here...
+
+You can:
+• Take notes during class
+• Copy and paste from Google Docs
+• Format your text
+• Add bullet points and lists
+
+Your work is auto-saved as you type."
+      ></textarea>
+    </div>
+  </div>
+
+  <!-- Metadata Panel (Slide-in from right) -->
+  <div id="metadata-panel" class="fixed right-0 top-0 h-full w-96 bg-white shadow-2xl transform translate-x-full transition-transform duration-300 z-50">
+    <div class="p-6">
+      <div class="flex items-center justify-between mb-6">
+        <h3 class="text-xl font-bold text-slate-900">Note Details</h3>
+        <button id="close-panel" class="p-2 hover:bg-slate-100 rounded-lg">
+          <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+
+      <form id="metadata-form" class="space-y-4">
+        <div>
+          <label class="block text-sm font-semibold text-slate-700 mb-2">Related Lesson</label>
+          <select id="lesson-select" class="w-full px-4 py-2 border-2 border-slate-300 rounded-lg focus:ring-2 focus:ring-purple-500 outline-none">
+            <option value="">Select a lesson...</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold text-slate-700 mb-2">Subject/Tag</label>
+          <input type="text" id="subject-input" 
+            class="w-full px-4 py-2 border-2 border-slate-300 rounded-lg focus:ring-2 focus:ring-purple-500 outline-none"
+            placeholder="e.g., Computer Science">
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold text-slate-700 mb-2">Resources/Links</label>
+          <div id="resources-list" class="space-y-2">
+            <div class="flex gap-2">
+              <input type="text" placeholder="Resource name" 
+                class="flex-1 px-3 py-2 border-2 border-slate-300 rounded-lg focus:ring-2 focus:ring-purple-500 outline-none text-sm">
+              <input type="text" placeholder="Link" 
+                class="flex-1 px-3 py-2 border-2 border-slate-300 rounded-lg focus:ring-2 focus:ring-purple-500 outline-none text-sm">
+            </div>
+          </div>
+          <button type="button" id="add-resource-meta" class="mt-2 text-sm text-purple-600 hover:text-purple-700 font-semibold">
+            + Add resource
+          </button>
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold text-slate-700 mb-2">Attach Files</label>
+          <div class="border-2 border-dashed border-slate-300 rounded-lg p-6 text-center hover:border-purple-500 transition-all cursor-pointer" id="file-drop-zone">
+            <input type="file" id="file-input" multiple accept="image/*,.pdf,.doc,.docx,.txt" class="hidden">
+            <svg class="w-12 h-12 mx-auto mb-3 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+            </svg>
+            <p class="text-sm text-slate-600 mb-1">Click to upload or drag and drop</p>
+            <p class="text-xs text-slate-500">Images, PDFs, Documents (Max 5MB each)</p>
+          </div>
+          <div id="file-list" class="mt-3 space-y-2">
+            <!-- Uploaded files will appear here -->
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script type="module" src="create-note.js"></script>
+</body>
+</html>

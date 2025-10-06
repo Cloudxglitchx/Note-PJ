@@ -1,18 +1,17 @@
-import { AuthManager } from './auth.js';
+import { SimpleAuth } from './auth-simple.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
   // -------------------------
   // Authentication
   // -------------------------
-  const authManager = new AuthManager();
+  const auth = new SimpleAuth();
   
   // Require authentication
-  const isAuthenticated = await authManager.requireAuth();
-  if (!isAuthenticated) return;
+  if (!auth.requireAuth()) return;
 
   // Add logout button to nav
   const nav = document.getElementById('main-nav');
-  authManager.addLogoutButton(nav);
+  auth.addLogoutButton(nav);
 
   // -------------------------
   // DOM Elements
@@ -31,6 +30,31 @@ document.addEventListener('DOMContentLoaded', async () => {
   dateElement.textContent = today.toLocaleDateString(undefined, options);
 
   // -------------------------
+  // Load/Save Notes from localStorage
+  // -------------------------
+  function loadNotes() {
+    const saved = localStorage.getItem('studentNotes');
+    if (saved) {
+      const notes = JSON.parse(saved);
+      // Convert timestamp strings back to Date objects
+      return notes.map(note => ({
+        ...note,
+        timestamp: new Date(note.timestamp)
+      }));
+    }
+    // Default notes if none saved
+    return [
+      { id: 1, title: "AI Note Summaries", snippet: 'Using AI to condense lengthy notes into key points.', author: 'Amelia', timestamp: new Date(), rating: 28, comments: 5, resources: [{ name: 'AI Summary Tips.pdf', link: '#' }] },
+      { id: 2, title: "Smart Flashcards", snippet: 'Generating personalized flashcards with AI.', author: 'Ben', timestamp: new Date(), rating: 45, comments: 8, resources: [{ name: 'Flashcard Examples', link: '#' }] },
+      { id: 3, title: "AI Study Planner", snippet: 'Organizing your study schedule efficiently using AI.', author: 'Chloe', timestamp: new Date(), rating: 15, comments: 2, resources: [] }
+    ];
+  }
+
+  function saveNotes() {
+    localStorage.setItem('studentNotes', JSON.stringify(studentNotes));
+  }
+
+  // -------------------------
   // Teacher post data
   // -------------------------
   const teacherPost = {
@@ -45,14 +69,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   };
 
   // -------------------------
-  // Sample student notes
+  // Student notes
   // -------------------------
-  let studentNotes = [
-    { id: 1, title: "AI Note Summaries", snippet: 'Using AI to condense lengthy notes into key points.', author: 'Amelia', timestamp: new Date(), rating: 28, comments: 5, resources: [{ name: 'AI Summary Tips.pdf', link: '#' }] },
-    { id: 2, title: "Smart Flashcards", snippet: 'Generating personalized flashcards with AI.', author: 'Ben', timestamp: new Date(), rating: 45, comments: 8, resources: [{ name: 'Flashcard Examples', link: '#' }] },
-    { id: 3, title: "AI Study Planner", snippet: 'Organizing your study schedule efficiently using AI.', author: 'Chloe', timestamp: new Date(), rating: 15, comments: 2, resources: [] }
-  ];
-
+  let studentNotes = loadNotes();
   let currentSort = 'newest';
   let searchTerm = '';
 
@@ -124,7 +143,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         </div>` : '';
 
       const noteCard = document.createElement('div');
-      noteCard.className = 'note-card bg-white p-6 rounded-lg shadow-sm relative';
+      noteCard.className = 'note-card bg-white p-6 rounded-lg shadow-sm relative cursor-pointer hover:shadow-lg transition-all';
       noteCard.innerHTML = `
         ${isTopNote ? `<div class="top-note-badge">★ Top Note</div>` : ''}
         <h3 class="text-xl font-bold mb-2">${note.title}</h3>
@@ -132,17 +151,31 @@ document.addEventListener('DOMContentLoaded', async () => {
         ${resourcesHTML}
         <div class="flex justify-between items-center mt-4 text-sm text-slate-500">
           <span>${note.author} &bull; ${timeAgo(note.timestamp)}</span>
-          <div class="flex items-center gap-2">
-            <button class="vote-btn" data-id="${note.id}" data-action="upvote">
-              <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="m5 12 7-7 7 7M12 19V5"/></svg>
-            </button>
-            <span data-rating-id="${note.id}">${note.rating}</span>
-            <button class="vote-btn" data-id="${note.id}" data-action="downvote">
-              <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 5v14m7-7-7 7-7-7"/></svg>
-            </button>
+          <div class="flex items-center gap-3">
+            <a href="note-detail.html?id=${note.id}" class="flex items-center gap-1 text-purple-600 hover:text-purple-700 font-semibold" onclick="event.stopPropagation()">
+              <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+              </svg>
+              ${note.comments || 0}
+            </a>
+            <div class="flex items-center gap-2">
+              <button class="vote-btn" data-id="${note.id}" data-action="upvote" onclick="event.stopPropagation()">
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="m5 12 7-7 7 7M12 19V5"/></svg>
+              </button>
+              <span data-rating-id="${note.id}">${note.rating}</span>
+              <button class="vote-btn" data-id="${note.id}" data-action="downvote" onclick="event.stopPropagation()">
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 5v14m7-7-7 7-7-7"/></svg>
+              </button>
+            </div>
           </div>
         </div>
       `;
+      
+      // Click card to view details
+      noteCard.addEventListener('click', () => {
+        window.location.href = `note-detail.html?id=${note.id}`;
+      });
+      
       notesGrid.appendChild(noteCard);
     });
 
@@ -165,6 +198,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if(note) {
       action === 'upvote' ? note.rating++ : note.rating--;
       document.querySelector(`[data-rating-id="${noteId}"]`).textContent = note.rating;
+      saveNotes(); // Save to localStorage
       if(currentSort === 'top') renderStudentNotes();
     }
   });
