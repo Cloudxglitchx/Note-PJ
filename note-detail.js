@@ -290,16 +290,10 @@ document.addEventListener('DOMContentLoaded', () => {
   // Voting
   // -------------------------
   const upvoteBtn = document.getElementById('upvote-btn');
-  const downvoteBtn = document.getElementById('downvote-btn');
   const ratingEl = document.getElementById('note-rating');
 
   upvoteBtn.addEventListener('click', () => {
     note.rating = (note.rating || 0) + 1;
-    updateNoteRating();
-  });
-
-  downvoteBtn.addEventListener('click', () => {
-    note.rating = (note.rating || 0) - 1;
     updateNoteRating();
   });
 

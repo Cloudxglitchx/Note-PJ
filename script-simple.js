@@ -174,14 +174,11 @@ document.addEventListener('DOMContentLoaded', async () => {
               </svg>
               ${note.comments || 0}
             </a>
-            <div class="flex items-center gap-2">
-              <button class="vote-btn" data-id="${note.id}" data-action="upvote" onclick="event.stopPropagation()">
+            <div class="flex items-center gap-1">
+              <button class="vote-btn" data-id="${note.id}" data-action="upvote" onclick="event.stopPropagation()" title="Upvote">
                 <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="m5 12 7-7 7 7M12 19V5"/></svg>
               </button>
-              <span data-rating-id="${note.id}">${note.rating}</span>
-              <button class="vote-btn" data-id="${note.id}" data-action="downvote" onclick="event.stopPropagation()">
-                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 5v14m7-7-7 7-7-7"/></svg>
-              </button>
+              <span data-rating-id="${note.id}" class="font-semibold">${note.rating}</span>
             </div>
           </div>
         </div>
