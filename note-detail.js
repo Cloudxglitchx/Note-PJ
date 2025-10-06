@@ -417,6 +417,94 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // -------------------------
+  // Chat with Note Feature
+  // -------------------------
+  const chatInput = document.getElementById('chat-input');
+  const chatSend = document.getElementById('chat-send');
+  const chatMessages = document.getElementById('chat-messages');
+  const clearChat = document.getElementById('clear-chat');
+  let chatHistory = [];
+
+  function addChatMessage(role, content) {
+    const messageDiv = document.createElement('div');
+    messageDiv.className = role === 'user' 
+      ? 'flex justify-end'
+      : 'flex justify-start';
+    
+    messageDiv.innerHTML = `
+      <div class="${role === 'user' ? 'bg-blue-600 text-white' : 'bg-white border border-slate-300 text-slate-900'} rounded-lg px-4 py-3 max-w-[80%] shadow-sm">
+        <div class="text-xs font-semibold mb-1 ${role === 'user' ? 'text-blue-100' : 'text-slate-500'}">${role === 'user' ? 'You' : 'AI Assistant'}</div>
+        <div class="text-sm whitespace-pre-wrap">${content}</div>
+      </div>
+    `;
+    
+    chatMessages.appendChild(messageDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  async function sendChatMessage() {
+    const question = chatInput.value.trim();
+    if (!question) return;
+
+    if (!ai.hasApiKey()) {
+      alert('Please set up your Google Gemini API key in AI Settings first.');
+      return;
+    }
+
+    // Add user message
+    addChatMessage('user', question);
+    chatHistory.push({ role: 'user', content: question });
+    chatInput.value = '';
+
+    // Show loading
+    const loadingDiv = document.createElement('div');
+    loadingDiv.className = 'flex justify-start';
+    loadingDiv.id = 'loading-message';
+    loadingDiv.innerHTML = `
+      <div class="bg-white border border-slate-300 rounded-lg px-4 py-3 shadow-sm">
+        <div class="flex items-center gap-2">
+          <svg class="animate-spin w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          <span class="text-sm text-slate-600">AI is thinking...</span>
+        </div>
+      </div>
+    `;
+    chatMessages.appendChild(loadingDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    try {
+      const answer = await ai.chatWithNote(question, note.title, note.content || note.snippet, chatHistory);
+      
+      // Remove loading
+      document.getElementById('loading-message')?.remove();
+      
+      // Add AI response
+      addChatMessage('assistant', answer);
+      chatHistory.push({ role: 'assistant', content: answer });
+    } catch (error) {
+      document.getElementById('loading-message')?.remove();
+      addChatMessage('assistant', 'Sorry, I encountered an error. Please check your API key in AI Settings and try again.');
+    }
+  }
+
+  chatSend.addEventListener('click', sendChatMessage);
+  
+  chatInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      sendChatMessage();
+    }
+  });
+
+  clearChat.addEventListener('click', () => {
+    if (confirm('Clear chat conversation?')) {
+      chatMessages.innerHTML = '';
+      chatHistory = [];
+    }
+  });
+
+  // -------------------------
   // Initial Render
   // -------------------------
   renderNote();

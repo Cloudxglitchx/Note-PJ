@@ -142,4 +142,29 @@ Provide a clear, concise explanation:`;
 
     return await this.makeRequest(prompt);
   }
+
+  // Chat with note - ask questions about the content
+  async chatWithNote(question, noteTitle, noteContent, chatHistory = []) {
+    let historyText = '';
+    if (chatHistory.length > 0) {
+      historyText = '\n\nPrevious conversation:\n' + 
+        chatHistory.map(msg => `${msg.role}: ${msg.content}`).join('\n');
+    }
+
+    const prompt = `You are a helpful study assistant. A student is reading a note and has a question about it.
+
+Note Title: ${noteTitle}
+
+Note Content:
+${noteContent}
+${historyText}
+
+Student's Question: ${question}
+
+Provide a clear, helpful answer based on the note content. If the question cannot be answered from the note, politely say so and offer to help in another way.
+
+Answer:`;
+
+    return await this.makeRequest(prompt);
+  }
 }
